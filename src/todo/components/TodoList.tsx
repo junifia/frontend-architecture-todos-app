@@ -1,23 +1,19 @@
-import useToggleTodo from "../hooks/useToggleTodo";
 import { Todo } from "../types/todo";
-import TodoItem from "./TodoItem";
+import TodoContainer from "./TodoContainer";
 
 interface TodoListProps {
   todos: Todo[];
 }
 
 function TodoList({ todos }: TodoListProps) {
-  const { toggleTodo } = useToggleTodo();
-
   return (
     <ul>
       {todos.map((todo) => (
         <li key={todo.id}>
-          <TodoItem
+          <TodoContainer
             id={todo.id}
             title={todo.title}
             completed={todo.completed}
-            onToggle={toggleTodo}
           />
         </li>
       ))}

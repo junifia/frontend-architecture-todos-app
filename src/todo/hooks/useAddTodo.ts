@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "react-query";
-import { createTodo } from "../services/todoService";
 import { Todo } from "../types/todo";
+import { TodoRepository } from "../todoRepository";
 
-function useAddTodo() {
+function useAddTodo(todoRepository: TodoRepository) {
   const queryClient = useQueryClient();
 
   const addTodoMutation = useMutation(["todos"], (todo: { title: string }) =>
-    createTodo(todo)
+    todoRepository.create(todo.title)
   );
 
   const addTodo = (title: string) => {

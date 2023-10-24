@@ -1,14 +1,20 @@
 import { useQuery } from "react-query";
-import { getTodos } from "../services/todoService";
+import { TodoRepository } from "../todoRepository";
+import useAddTodo from "./useAddTodo";
 
-function useTodos() {
+function useTodos(todoRepository: TodoRepository) {
   const {
     data: todos,
     isLoading,
     error,
-  } = useQuery(["todos"], () => getTodos());
+  } = useQuery(["todos"], () => todoRepository.getAll());
+  const { addTodo } = useAddTodo(todoRepository);
 
-  return { todos, isLoading, error };
+  if (!todos) {
+    return { todos: [], isLoading, error };
+  }
+
+  return { todos, addTodo, isLoading, error };
 }
 
 export default useTodos;

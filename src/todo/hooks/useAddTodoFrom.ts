@@ -11,6 +11,11 @@ const useAddTodoForm = ({ onAdd }: AddTodoFormProps) => {
     setTitle(event.target.value);
   };
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleAddTodo();
+  };
+
   const handleAddTodo = () => {
     if (title.trim()) {
       onAdd(title.trim());
@@ -25,7 +30,7 @@ const useAddTodoForm = ({ onAdd }: AddTodoFormProps) => {
   return {
     title,
     handleTitleChange,
-    handleAddTodo,
+    handleFormSubmit,
   };
 };
 
