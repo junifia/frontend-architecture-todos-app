@@ -1,8 +1,8 @@
-import AddTodo from "./components/AddTodo";
+import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import useAddTodo from "./hooks/useAddTodo";
 import useTodos from "./hooks/useTodos";
-import { LocalStorageTodoRepository } from "./localStorageTodoRepository";
+import { LocalStorageTodoRepository } from "./infrastructure/localStorageTodoRepository";
 
 const todoRepository = new LocalStorageTodoRepository();
 
@@ -16,7 +16,7 @@ function TodosPage() {
 
   return (
     <div className="container mx-auto my-8">
-      <AddTodo onAdd={addTodo} />
+      <AddTodoForm onAdd={addTodo} />
       <TodoList todos={todos} />
     </div>
   );

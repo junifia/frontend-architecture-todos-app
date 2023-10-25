@@ -4,7 +4,7 @@ interface AddTodoProps {
   onAdd: (title: string) => void;
 }
 
-function AddTodo({ onAdd }: AddTodoProps) {
+function AddTodoForm({ onAdd }: AddTodoProps) {
   const { title, handleTitleChange, handleFormSubmit } = useAddTodoForm({
     onAdd,
   });
@@ -28,4 +28,4 @@ function AddTodo({ onAdd }: AddTodoProps) {
   );
 }
 
-export default AddTodo;
+export default AddTodoForm;

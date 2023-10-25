@@ -1,4 +1,4 @@
-import { Todo } from "../types/todo";
+import { Todo } from "../entities/todo";
 
 export const getTodos = async () => {
   const endpoint = "https://jsonplaceholder.typicode.com/todos";

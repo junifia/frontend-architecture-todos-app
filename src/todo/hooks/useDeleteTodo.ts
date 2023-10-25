@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
-import { TodoRepository } from "../todoRepository";
-import { Todo } from "../types/todo";
+import { TodoRepository } from "../entities/todoRepository";
+import { Todo } from "../entities/todo";
 
 function useDeleteTodo(todoRepository: TodoRepository) {
   const queryClient = useQueryClient();

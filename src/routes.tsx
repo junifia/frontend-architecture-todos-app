@@ -3,7 +3,7 @@ import TodosPage from "./todo/TodosPage";
 
 export const routes: RouteProps[] = [
   {
-    path: "/todos",
+    path: "/",
     element: <TodosPage />,
   },
 ];

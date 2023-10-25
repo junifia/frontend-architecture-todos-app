@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
-import { Todo } from "../types/todo";
-import { TodoRepository } from "../todoRepository";
+import { Todo } from "../entities/todo";
+import { TodoRepository } from "../entities/todoRepository";
 
 function useToggleTodo(todoRepository: TodoRepository) {
   const queryClient = useQueryClient();

@@ -1,22 +1,11 @@
-import { Todo } from "../types/todo";
-
 interface TodoItemProps {
-  id: string;
   title: string;
   completed: boolean;
-  onToggle: (todo: Todo) => void;
-  onDelete: (id: string) => void;
+  onToggle: () => void;
+  onDelete: () => void;
 }
 
-function TodoItem({ id, title, completed, onToggle, onDelete }: TodoItemProps) {
-  const handleCheckboxChange = () => {
-    onToggle({ id, title, completed });
-  };
-
-  const handleDelete = () => {
-    onDelete(id);
-  }
-
+function TodoItem({ title, completed, onToggle, onDelete }: TodoItemProps) {
   return (
     <div className="flex items-center justify-between p-4 border-b hover:bg-gray-50 transition-colors duration-200">
       <div className="flex items-center space-x-4">
@@ -24,7 +13,7 @@ function TodoItem({ id, title, completed, onToggle, onDelete }: TodoItemProps) {
           <input
             type="checkbox"
             checked={completed}
-            onChange={handleCheckboxChange}
+            onChange={onToggle}
             className="h-5 w-5 hover:cursor-pointer accent-indigo-500 focus:ring-indigo-200 focus:outline-none"
           />
         </label>
@@ -36,7 +25,10 @@ function TodoItem({ id, title, completed, onToggle, onDelete }: TodoItemProps) {
           {title}
         </span>
       </div>
-      <button onClick={handleDelete} className="bg-red-600 hover:bg-red-400 px-2 py-1 rounded-md text-white transition-colors duration-200">
+      <button
+        onClick={onDelete}
+        className="bg-red-600 hover:bg-red-400 px-2 py-1 rounded-md text-white transition-colors duration-200"
+      >
         Delete
       </button>
     </div>

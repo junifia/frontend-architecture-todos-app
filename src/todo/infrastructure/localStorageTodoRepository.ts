@@ -1,15 +1,15 @@
-import { TodoRepository } from "./todoRepository";
-import { Todo } from "./types/todo";
+import { TodoRepository } from "../entities/todoRepository";
+import { Todo } from "../entities/todo";
 
 export class LocalStorageTodoRepository implements TodoRepository {
   private STORAGE_KEY = "todos";
 
-  getAll(): Promise<Todo[]> {
+  async getAll(): Promise<Todo[]> {
     const todos = localStorage.getItem(this.STORAGE_KEY);
-    return Promise.resolve(todos ? JSON.parse(todos) : []);
+    return todos ? JSON.parse(todos) : [];
   }
 
-  create(title: string): Promise<Todo> {
+  async create(title: string): Promise<Todo> {
     const todos = localStorage.getItem(this.STORAGE_KEY);
     const parsedTodos = todos ? JSON.parse(todos) : [];
     const newTodo: Todo = {
@@ -21,24 +21,25 @@ export class LocalStorageTodoRepository implements TodoRepository {
       this.STORAGE_KEY,
       JSON.stringify([...parsedTodos, newTodo])
     );
-    return Promise.resolve(newTodo);
+    return newTodo;
   }
 
-  update(todo: Todo): Promise<Todo> {
+  async update(todo: Todo): Promise<Todo> {
     const todos = localStorage.getItem(this.STORAGE_KEY);
     const parsedTodos = todos ? JSON.parse(todos) : [];
     const updatedTodos = parsedTodos.map((t: Todo) =>
       t.id === todo.id ? todo : t
     );
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updatedTodos));
-    return Promise.resolve(todo);
+    return todo;
   }
 
-  delete(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const todos = localStorage.getItem(this.STORAGE_KEY);
     const parsedTodos = todos ? JSON.parse(todos) : [];
-    const updatedTodos = parsedTodos.filter((t: Todo) => t.id.toString() !== id);
+    const updatedTodos = parsedTodos.filter(
+      (t: Todo) => t.id.toString() !== id
+    );
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updatedTodos));
-    return Promise.resolve();
   }
 }

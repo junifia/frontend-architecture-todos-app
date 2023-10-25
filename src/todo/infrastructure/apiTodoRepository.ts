@@ -1,5 +1,5 @@
-import { TodoRepository } from "./todoRepository";
-import { Todo } from "./types/todo";
+import { TodoRepository } from "../entities/todoRepository";
+import { Todo } from "../entities/todo";
 
 export class ApiTodoRepository implements TodoRepository {
   async getAll(): Promise<Todo[]> {

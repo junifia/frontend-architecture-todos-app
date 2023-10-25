@@ -1,4 +1,4 @@
-import { Todo } from "./types/todo";
+import { Todo } from "./todo";
 
 export interface TodoRepository {
   getAll(): Promise<Todo[]>;
