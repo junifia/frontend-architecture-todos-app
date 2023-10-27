@@ -5,29 +5,21 @@ import { TodoRepository } from "../entities/todoRepository";
 function useToggleTodo(todoRepository: TodoRepository) {
   const queryClient = useQueryClient();
 
+  const handleMutationSuccess = (todo: Todo) => {
+    const currentTodos = queryClient.getQueryData<Todo[]>(["todos"]) || [];
+    const updatedTodos = currentTodos.map((t) => (t.id === todo.id ? todo : t));
+    queryClient.setQueryData(["todos"], updatedTodos);
+  };
+
   const toggleTodoMutation = useMutation(["todos"], (todo: Todo) =>
     todoRepository.update(todo)
   );
 
   const toggleTodo = (todo: Todo) => {
-    toggleTodoMutation.mutate(
-      {
-        ...todo,
-        completed: !todo.completed,
-      },
-      {
-        onSuccess: (updatedTodo) => {
-          const currentTodos =
-            queryClient.getQueryData<Todo[]>(["todos"]) || [];
-          queryClient.setQueryData(
-            ["todos"],
-            currentTodos.map((todo: { id: string }) =>
-              todo.id === updatedTodo.id ? updatedTodo : todo
-            )
-          );
-        },
-      }
-    );
+    const updatedTodo = { ...todo, completed: !todo.completed };
+    toggleTodoMutation.mutate(updatedTodo, {
+      onSuccess: () => handleMutationSuccess(updatedTodo),
+    });
   };
 
   return { toggleTodo };

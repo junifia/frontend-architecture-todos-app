@@ -15,7 +15,7 @@ function TodosPage() {
   if (error) return <div>Something went wrong</div>;
 
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto p-12">
       <AddTodoForm onAdd={addTodo} />
       <TodoList todos={todos} />
     </div>
