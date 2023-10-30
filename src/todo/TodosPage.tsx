@@ -1,14 +1,10 @@
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
-import useAddTodo from "./hooks/useAddTodo";
 import useTodos from "./hooks/useTodos";
-import { LocalStorageTodoRepository } from "./infrastructure/localStorageTodoRepository";
-
-const todoRepository = new LocalStorageTodoRepository();
 
 function TodosPage() {
-  const { todos, isLoading, error } = useTodos(todoRepository);
-  const { addTodo } = useAddTodo(todoRepository);
+  const { todos, isLoading, error, addTodo, toggleTodo, deleteTodo } =
+    useTodos();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -17,7 +13,7 @@ function TodosPage() {
   return (
     <div className="container mx-auto p-12">
       <AddTodoForm onAdd={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
     </div>
   );
 }
