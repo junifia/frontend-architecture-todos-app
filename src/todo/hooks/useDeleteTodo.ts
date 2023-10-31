@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "react-query";
 import { TodoRepository } from "../entities/todoRepository";
 import { Todo } from "../entities/todo";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function useDeleteTodo(todoRepository: TodoRepository) {
   const queryClient = useQueryClient();
@@ -11,9 +11,10 @@ function useDeleteTodo(todoRepository: TodoRepository) {
     queryClient.setQueryData(["todos"], updatedTodos);
   };
 
-  const deleteTodoMutation = useMutation(["todos"], (id: string) =>
-    todoRepository.delete(id)
-  );
+  const deleteTodoMutation = useMutation({
+    mutationKey: ["todos"],
+    mutationFn: (id: string) => todoRepository.delete(id),
+  });
 
   const deleteTodo = (id: string) => {
     deleteTodoMutation.mutate(id, {

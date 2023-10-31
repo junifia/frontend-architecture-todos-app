@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../entities/todo";
 import { TodoRepository } from "../entities/todoRepository";
 
@@ -11,9 +11,10 @@ function useToggleTodo(todoRepository: TodoRepository) {
     queryClient.setQueryData(["todos"], updatedTodos);
   };
 
-  const toggleTodoMutation = useMutation(["todos"], (todo: Todo) =>
-    todoRepository.update(todo)
-  );
+  const toggleTodoMutation = useMutation({
+    mutationKey: ["todos"],
+    mutationFn: (todo: Todo) => todoRepository.update(todo),
+  });
 
   const toggleTodo = (todo: Todo) => {
     const updatedTodo = { ...todo, completed: !todo.completed };

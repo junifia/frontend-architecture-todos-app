@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../entities/todo";
 import { TodoRepository } from "../entities/todoRepository";
 
@@ -10,9 +10,10 @@ function useAddTodo(todoRepository: TodoRepository) {
     queryClient.setQueryData(["todos"], [...currentTodos, todo]);
   };
 
-  const addTodoMutation = useMutation(["todos"], (todo: { title: string }) =>
-    todoRepository.create(todo.title)
-  );
+  const addTodoMutation = useMutation({
+    mutationKey: ["todos"],
+    mutationFn: (todo: { title: string }) => todoRepository.create(todo.title),
+  });
 
   const addTodo = (title: string) => {
     addTodoMutation.mutate(

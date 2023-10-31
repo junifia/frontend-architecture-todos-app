@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { TodoRepository } from "../entities/todoRepository";
 
 function useGetTodos(todoRepository: TodoRepository) {
@@ -6,7 +6,7 @@ function useGetTodos(todoRepository: TodoRepository) {
     data: todos = [],
     isLoading,
     error,
-  } = useQuery(["todos"], () => todoRepository.getAll());
+  } = useQuery({ queryKey: ["todos"], queryFn: () => todoRepository.getAll() });
 
   return { todos, isLoading, error };
 }
